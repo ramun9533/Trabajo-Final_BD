@@ -1,0 +1,143 @@
+ CREATE TABLE Usuarios (
+    ID_Usuario INTEGER PRIMARY KEY,
+    ID_Empleado INTEGER,
+    NombreUsuario TEXT UNIQUE,
+    Contraseña TEXT,
+    Rol INTEGER,
+    Status INTEGER,
+    FOREIGN KEY (ID_Empleado) REFERENCES Empleados (ID_Empleado),
+    FOREIGN KEY (Status) REFERENCES Empleados (Status)
+);
+
+CREATE TABLE Producto (
+    ID_Producto INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    Descripcion TEXT,
+    Precio REAL,
+    Stock INTEGER,
+    Status INTEGER,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado)
+);
+CREATE TABLE Proveedor (
+    ID_Proveedor INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    ApellidoP TEXT,
+    ApellidoM TEXT,
+    Status INTEGER,
+    Correo TEXT,
+    Direccion TEXT,
+    Telefono TEXT,
+    FechaInicio DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModificacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- Restricción única para evitar empleados duplicados basados en nombre y apellidos
+    CONSTRAINT unique_empleado UNIQUE (Nombre, ApellidoP, ApellidoM)
+);
+CREATE TABLE Cliente (
+    ID_Cliente INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    Direccion TEXT,
+    Telefono TEXT,
+    Correo TEXT,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado)
+);
+
+CREATE TABLE Reparacion (
+    ID_Reparacion INTEGER PRIMARY KEY,
+    ID_Cliente INTEGER REFERENCES Cliente(ID_Cliente),
+    Status INTEGER,
+    FechaFin DATETIME,
+    CostoTotal REAL,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE DetalleVenta (
+    ID_DetalleVenta INTEGER PRIMARY KEY,
+    ID_Producto INTEGER REFERENCES Producto(ID_Producto),
+    ID_Venta INTEGER REFERENCES Venta(ID_Venta),
+    Cantidad INTEGER,
+    PrecioUnitario REAL,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE DetalleReparacion (
+    ID_DetalleReparacion INTEGER PRIMARY KEY,
+    ID_Reparacion INTEGER REFERENCES Reparacion(ID_Reparacion),
+    ID_Producto INTEGER REFERENCES Producto(ID_Producto),
+    Cantidad INTEGER,
+    Costo REAL,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+--ApellidoP y ApellidoM
+
+
+ALTER TABLE Proveedor
+ADD ApellidoP TEXT;
+
+ALTER TABLE Proveedor
+ADD ApellidoM TEXT;
+
+ALTER TABLE Proveedor
+ADD CONSTRAINT unique_proveedor UNIQUE (Nombre, ApellidoP, ApellidoM));
+
+select * FROM Usuarios
+
+--DROP TABLE Proveedor;
+--DROP TABLE users;
+--DROP TABLE Empleados;
+
+CREATE TABLE Stock (
+    ID_Stock INTEGER PRIMARY KEY,
+    ID_Producto INTEGER REFERENCES Producto(ID_Producto),
+    Cantidad INTEGER,
+    PrecioUnitario DECIMAL(10, 2),
+    FechaUltimaEntrada DATETIME,
+    FechaUltimaSalida DATETIME,
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+);
+
+CREATE TABLE Empleados (
+    ID_Empleado INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    ApellidoP TEXT,
+    ApellidoM TEXT,
+    Status INTEGER,
+    Salario REAL,
+    Cargo TEXT,
+    Telefono TEXT,
+    FechaInicio DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModificacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    -- Restricción única para evitar empleados duplicados basados en nombre y apellidos
+    CONSTRAINT unique_empleado UNIQUE (Nombre, ApellidoP, ApellidoM)
+);
+
+
+-- Insertar un empleado
+-- Insertar un empleado
+INSERT INTO Empleados (Nombre, ApellidoP, ApellidoM, Status, Salario, Cargo, Telefono)
+VALUES ('Juan', 'Pérez', 'Gómez', 1, 35000.00, 'Vendedor', '123-456-7890');
+
+-- Insertar otro empleado
+INSERT INTO Empleados (Nombre, ApellidoP, ApellidoM, Status, Salario, Cargo, Telefono)
+VALUES ('María', 'López', 'García', 1, 42000.00, 'Gerente', '987-654-3210');
+
+-- Insertar un usuario asociado al primer empleado
+INSERT INTO Usuarios (ID_Empleado, NombreUsuario, Contraseña, Rol, Status)
+VALUES (1, 'juan.perez', 'clave123', 1, 1);
+
+-- Insertar otro usuario asociado al segundo empleado
+INSERT INTO Usuarios (ID_Empleado, NombreUsuario, Contraseña, Rol, Status)
+VALUES (2, 'maria.lopez', 'contraseña456', 2, 1);
+
+SELECT  * FROM  Producto;

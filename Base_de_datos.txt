@@ -1,0 +1,108 @@
+-- Pestaña de "tab_inventario"
+
+--Nota:
+--La fecha de modificacion se deja fija, ya que se incrsutara 
+--la fecha con el backend
+ CREATE TABLE Producto (
+    ID_Producto INTEGER PRIMARY KEY,
+    Nombre TEXT UNIQUE,
+    Descripcion TEXT,
+    Precio REAL,
+    Stock INTEGER,
+    Status INTEGER,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME
+);
+
+--Puede ser la llamada de la pestaña"venta"
+CREATE TABLE DetalleVenta (
+    ID_DetalleVenta INTEGER PRIMARY KEY,
+    ID_Producto INTEGER REFERENCES Producto(ID_Producto),
+    ID_Venta INTEGER REFERENCES Venta(ID_Venta),
+    Cantidad INTEGER,
+    PrecioUnitario REAL,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME 
+);
+
+
+CREATE TABLE Proveedor (
+    ID_Proveedor INTEGER PRIMARY KEY,
+    Nombre TEXT UNIQUE,
+    Status INTEGER,
+    Telefono TEXT,
+    Correo TEXT,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME
+);
+
+CREATE TABLE Cliente (
+    ID_Cliente INTEGER PRIMARY KEY,
+    Nombre TEXT UNIQUE,
+    Direccion TEXT,
+    Telefono TEXT,
+    Correo TEXT,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME 
+);
+
+CREATE TABLE Reparacion (
+    ID_Reparacion INTEGER PRIMARY KEY,
+    ID_Cliente INTEGER REFERENCES Cliente(ID_Cliente),
+    FechaInicio DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Status INTEGER,
+    FechaFin DATETIME,
+    CostoTotal REAL,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME 
+);
+
+CREATE TABLE DetalleReparacion (
+    ID_DetalleReparacion INTEGER PRIMARY KEY,
+    ID_Reparacion INTEGER REFERENCES Reparacion(ID_Reparacion),
+    ID_Producto INTEGER REFERENCES Producto(ID_Producto),
+    Cantidad INTEGER,
+    CostoUnitario REAL,
+    CreadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ModificadoPor INTEGER REFERENCES Empleados(ID_Empleado),
+    FechaModificacion DATETIME 
+);
+
+CREATE TABLE Empleados (
+    ID_Empleado INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    ApellidoP TEXT,
+    ApellidoM TEXT,
+    Status INTEGER,
+    Salario REAL,
+    Cargo TEXT,
+    Telefono TEXT,
+    FechaInicio DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModificacion DATETIME,
+    -- Restricción única para evitar empleados duplicados basados en nombre y apellidos
+    CONSTRAINT unique_empleado UNIQUE (Nombre, ApellidoP, ApellidoM)
+);
+
+
+CREATE TABLE Usuarios (
+    ID_Usuario INTEGER PRIMARY KEY,
+    ID_Empleado INTEGER,
+    NombreUsuario TEXT UNIQUE,
+    Contraseña TEXT,
+    Rol INTEGER,
+    Status INTEGER,
+    FOREIGN KEY (ID_Empleado) REFERENCES Empleados (ID_Empleado),
+    FOREIGN KEY (Status) REFERENCES Empleados (Status)
+);
+

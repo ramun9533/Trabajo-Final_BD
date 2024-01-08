@@ -1,0 +1,16 @@
+ CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE,
+        password TEXT
+    );
+
+-- Insertar un usuario
+INSERT INTO users (username, password) VALUES ('Juan', '1234');
+
+-- Insertar otro usuario
+INSERT INTO users (username, password) VALUES ('Pablo', '4321');
+
+-- Insertar un tercer usuario
+INSERT INTO users (username, password) VALUES ('Pedro', 'abcd');
+
+	select * from users
