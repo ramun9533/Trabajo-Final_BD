@@ -12,7 +12,7 @@ Este proyecto es una aplicación de software diseñada para gestionar datos y op
 
 - **Registro de Reparaciones:** Documenta y rastrea el progreso de las reparaciones, proporcionando una visión clara del estado de cada trabajo.
 
-- **Ademas de que manipula todos los insert de la tabla en formulario
+- **Manipula inserciones** Ademas de que manipula todos los insert de la tabla en formulario
 
 ## Tecnologías Utilizadas
 
