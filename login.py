@@ -39,7 +39,7 @@ def login():
                 file.write(uname)
             messagebox.showinfo("", f"Bienvenido/a {uname}")
             # Ejecutar el script externo después del acceso exitoso.
-            subprocess.run(["python", "Electronica_Mimendi.py"])
+            subprocess.run(["python", "WIP.py"])
             root.destroy()
         else:
             messagebox.showinfo("", "Password o Usuario Incorrecto ")
