@@ -2,9 +2,11 @@
 
 Este proyecto es una aplicación de software diseñada para gestionar datos y operaciones en una tienda de electrónica. Proporciona funciones de CRUD (Crear, Leer, Actualizar, Eliminar) para manejar inventario, clientes, ventas y reparaciones.
 
+![Imagen de Tienda de Electrónica](https://github.com/ramun9533/Trabajo-Final_BD/blob/main/Mimendi.png)
+
 ## Características Principales
 
-- **Gestión de Inventario:** Agrega, edita, y elimina productos en el inventario, incluyendo información detallada como nombre, descripción, precio, etc.
+- **Gestión de Inventario:** Agrega, edita y elimina productos en el inventario, incluyendo información detallada como nombre, descripción, precio, etc.
 
 - **Gestión de Clientes:** Registra y actualiza información de los clientes para un seguimiento efectivo y relaciones comerciales duraderas.
 
@@ -12,12 +14,12 @@ Este proyecto es una aplicación de software diseñada para gestionar datos y op
 
 - **Registro de Reparaciones:** Documenta y rastrea el progreso de las reparaciones, proporcionando una visión clara del estado de cada trabajo.
 
-- **Manipula inserciones** Ademas de que manipula todos los insert de la tabla en formulario
+- **Manipula inserciones:** Además de manipular todos los insert de la tabla en formulario.
 
 ## Tecnologías Utilizadas
 
 - **Lenguaje de Programación:** Python
-- **Framework Web:** tkinter
+- **Framework GUI:** Tkinter
 - **Base de Datos:** SQLite
 
 ## Instrucciones de Instalación
@@ -25,4 +27,4 @@ Este proyecto es una aplicación de software diseñada para gestionar datos y op
 1. Clona este repositorio a tu máquina local:
 
    ```bash
-   git clone hhttps://github.com/ramun9533/Trabajo-Final_BD.git
+   git clone https://github.com/ramun9533/Trabajo-Final_BD.git
